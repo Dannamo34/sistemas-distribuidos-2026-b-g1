@@ -6,7 +6,7 @@
 
 - FULL_NAME: Danna Michelle Morales Losada
 - GITHUB_USER: Dannamo34
-- TEAM: Canchas de futbol
+- TEAM: Futbolix
 - SPRINT_GOAL: Complete and organize the initial project documentation, define the project context, domain, and product, and establish the foundations for the next stage of requirements and system design.
 
 ## 1. User stories worked this week
