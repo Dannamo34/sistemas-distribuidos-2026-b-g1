@@ -11,8 +11,6 @@
 
 ## 1. User stories worked this week
 
-[svg](https://github.com/Dannamo34/sistemas-distribuidos-2026-b-g1/blob/main/02-week/hu-status/README.md#1-user-stories-worked-this-week)
-
 | HU ID | Title | Status (todo/doing/done) | Evidence (PR or commit URL) |
 | --- | --- | --- | --- |
 | HU-CAN-001 | Define the project context and scope | done | https://github.com/code-corhuila/ftx-docs/tree/main/01-context |
