@@ -37,12 +37,13 @@ Scheduling conflicts limited the time available for collaborative work.
 - Upload the corresponding contributions and evidence to the repository.
 
 ## 5. Compliance self-check
+
 - [ ] Conventional Commits - `type(scope): summary`
-- [ ] Per-environment HU branch + PR to that environment (hu-xxx-dev -> develop, ...)
+- [ ] Per-environment HU branch + PR to that environment (`hu-xxx-dev -> develop`, ...)
 - [ ] Testable acceptance criteria
 - [ ] Tests added/updated (unit / integration)
 - [ ] DDD / hexagonal boundaries respected (domain has no I/O)
-- [ X] No secrets; config via environment variables
+- [x] No secrets; config via environment variables
 
 ## 6. Evidence links
 -
