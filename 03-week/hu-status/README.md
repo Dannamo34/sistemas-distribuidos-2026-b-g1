@@ -48,12 +48,12 @@
 
 ## 5. Compliance self-check
 
-- Conventional Commits - `type(scope): summary`
-- Per-environment HU branch + PR to that environment (`hu-xxx-dev -> develop`, ...)
-- Testable acceptance criteria
-- Tests added/updated (unit / integration)
-- DDD / hexagonal boundaries respected (domain has no I/O)
-- No secrets; config via environment variables
+- [ ] Conventional Commits - `type(scope): summary`
+- [ ] Per-environment HU branch + PR to that environment (`hu-xxx-dev -> develop`, ...)
+- [ ] Testable acceptance criteria
+- [ ] Tests added/updated (unit / integration)
+- [ ] DDD / hexagonal boundaries respected (domain has no I/O)
+- [x] No secrets; config via environment variables
 
 ## 6. Evidence links
 
