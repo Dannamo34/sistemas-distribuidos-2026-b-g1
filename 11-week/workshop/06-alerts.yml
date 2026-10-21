@@ -1,0 +1,55 @@
+
+groups:
+  - name: futbolix-availability-slo
+    rules:
+      - alert: ReservationAvailabilityFastBurn
+        expr: |
+          (
+            (
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations",outcome="failure"}[1h]))
+              /
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations"}[1h]))
+            ) > (14.4 * 0.005)
+          )
+          and
+          (
+            (
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations",outcome="failure"}[5m]))
+              /
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations"}[5m]))
+            ) > (14.4 * 0.005)
+          )
+        for: 5m
+        labels:
+          severity: critical
+          team: futbolix
+        annotations:
+          summary: "Fast burn of reservation availability error budget"
+          description: "Reservation API failures are consuming the 99.5% availability error budget at a fast rate."
+          runbook_url: "11-week/workshop/07-runbook.md"
+
+      - alert: ReservationAvailabilitySlowBurn
+        expr: |
+          (
+            (
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations",outcome="failure"}[6h]))
+              /
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations"}[6h]))
+            ) > (6 * 0.005)
+          )
+          and
+          (
+            (
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations",outcome="failure"}[30m]))
+              /
+              sum(rate(http_server_requests_total{service="reservation-service",route="/api/v1/reservations"}[30m]))
+            ) > (6 * 0.005)
+          )
+        for: 30m
+        labels:
+          severity: warning
+          team: futbolix
+        annotations:
+          summary: "Slow burn of reservation availability error budget"
+          description: "Reservation API failures are consuming the 99.5% availability error budget at a sustained rate."
+          runbook_url: "11-week/workshop/07-runbook.md"
