@@ -1,0 +1,57 @@
+
+name: Futbolix Security Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Detect exposed secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+
+  filesystem-and-dependency-audit:
+    name: Filesystem and dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan dependencies and filesystem
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          exit-code: '1'
+          ignore-unfixed: true
+
+  negative-authorization-test:
+    name: Negative authorization test
+    runs-on: ubuntu-latest
+    if: ${{ vars.FUTBOLIX_ADMIN_ENDPOINT != '' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify unauthorized access is rejected
+        shell: pwsh
+        env:
+          FUTBOLIX_ADMIN_ENDPOINT: ${{ vars.FUTBOLIX_ADMIN_ENDPOINT }}
+        run: |
+          ./13-week/workshop/04-security-ci/negative-auth-test.ps1 -Url "$env:FUTBOLIX_ADMIN_ENDPOINT"
